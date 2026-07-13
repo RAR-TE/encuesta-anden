@@ -176,6 +176,17 @@
   }
   .submit-btn:hover{transform:translateY(-1px);}
   .submit-btn:active{transform:translateY(0);}
+  .form-section{
+    display:flex; align-items:center; gap:12px;
+    margin-top:26px; margin-bottom:4px;
+  }
+  .form-section span{
+    font-size:0.68rem; font-weight:700; letter-spacing:0.08em; text-transform:uppercase;
+    color:rgba(245,250,247,0.4); white-space:nowrap;
+  }
+  .form-section::after{
+    content:""; flex:1; height:1px; background:rgba(245,250,247,0.12);
+  }
   .fine-print{
     font-size:0.72rem; color:rgba(245,250,247,0.45); margin-top:14px; line-height:1.4; position:relative;
   }
@@ -279,6 +290,8 @@
       <input type="hidden" name="form-name" value="encuesta-anden">
       <p style="display:none;"><label>No llenar: <input name="bot-field"></label></p>
 
+      <div class="form-section"><span>Tu situación actual</span></div>
+
       <label for="distrito">¿En qué distrito manejas la mayoría de tu semana?</label>
       <select id="distrito" name="distrito">
         <option value="">Selecciona tu distrito</option>
@@ -363,6 +376,8 @@
         <option>Trabajo por plataforma (taxi, delivery, transporte)</option>
         <option>Flota de empresa</option>
       </select>
+
+      <div class="form-section"><span>Sobre este servicio</span></div>
 
       <label for="interes">Si esto existiera cerca de ti, ¿qué tan interesado estarías en probarlo?</label>
       <select id="interes" name="interes">
