@@ -273,7 +273,7 @@
   <div class="form-card" id="reserva">
     <div id="formState">
       <h3>Cuéntanos qué opinas</h3>
-      <p class="sub">6 preguntas rápidas, nada más.</p>
+      <p class="sub">8 preguntas rápidas, nada más.</p>
 
       <form id="encuestaForm" name="encuesta-anden" method="POST" data-netlify="true" netlify-honeypot="bot-field" onsubmit="return submitForm(event)">
       <input type="hidden" name="form-name" value="encuesta-anden">
@@ -327,6 +327,24 @@
         <option>Villa El Salvador</option>
         <option>Villa María del Triunfo</option>
         <option>Otro</option>
+      </select>
+
+      <label for="canal">¿Dónde lavas tu auto hoy habitualmente?</label>
+      <select id="canal" name="canal">
+        <option value="">Selecciona una opción</option>
+        <option>Lavador informal en la calle</option>
+        <option>Concesión en grifo / estación de servicio</option>
+        <option>Local especializado de lavado</option>
+        <option>A domicilio (viene a mi casa o trabajo)</option>
+        <option>Yo mismo en casa</option>
+      </select>
+
+      <label for="interior">¿Ese lavado incluye limpieza interior?</label>
+      <select id="interior" name="interior">
+        <option value="">Selecciona una opción</option>
+        <option>Sí, siempre incluye interior</option>
+        <option>A veces, depende del servicio que pido</option>
+        <option>No, solo exterior</option>
       </select>
 
       <label for="frecuencia">¿Con qué frecuencia lavas tu auto hoy?</label>
@@ -449,6 +467,8 @@ async function submitForm(event){
   event.preventDefault();
 
   const distrito = document.getElementById('distrito').value;
+  const canal = document.getElementById('canal').value;
+  const interior = document.getElementById('interior').value;
   const frecuencia = document.getElementById('frecuencia').value;
   const perfil = document.getElementById('perfil').value;
   const interes = document.getElementById('interes').value;
@@ -456,8 +476,8 @@ async function submitForm(event){
   const aspirado = document.getElementById('aspirado').value;
   const contacto = document.getElementById('celular').value.trim();
 
-  if(!distrito || !frecuencia || !perfil || !interes || !precio || !aspirado){
-    alert('Completa las seis preguntas para enviar tu opinión.');
+  if(!distrito || !canal || !interior || !frecuencia || !perfil || !interes || !precio || !aspirado){
+    alert('Completa las ocho preguntas para enviar tu opinión.');
     return false;
   }
 
@@ -467,7 +487,7 @@ async function submitForm(event){
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
       body: encodeFormData({
         'form-name': 'encuesta-anden',
-        distrito, frecuencia, perfil, interes, precio, aspirado, contacto
+        distrito, canal, interior, frecuencia, perfil, interes, precio, aspirado, contacto
       })
     });
   }catch(e){
