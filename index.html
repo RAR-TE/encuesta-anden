@@ -300,7 +300,7 @@
         </div>
 
         <div>
-          <label for="donde_lavas">¿Dónde lavas tu auto habitualmente?</label>
+          <label for="donde_lavas">¿Dónde lavas tu auto hoy habitualmente?</label>
           <select id="donde_lavas" name="donde_lavas">
             <option value="">Selecciona una opción</option>
             <option>Lavador informal en la calle</option>
@@ -322,13 +322,13 @@
         </div>
 
         <div>
-          <label for="frecuencia">¿Con qué frecuencia lavas tu auto?</label>
+          <label for="frecuencia">¿Con qué frecuencia lavas tu auto hoy?</label>
           <select id="frecuencia" name="frecuencia">
             <option value="">Selecciona una opción</option>
-            <option>Más de una vez por semana</option>
             <option>Semanal</option>
             <option>Quincenal</option>
             <option>Mensual</option>
+            <option>Rara vez</option>
           </select>
         </div>
 
@@ -343,6 +343,17 @@
         </div>
 
         <span class="form-subhead">Sobre este servicio</span>
+
+        <div class="full-width">
+          <label for="preferencia">Si pudieras elegir, ¿qué preferirías para tu auto?</label>
+          <select id="preferencia" name="preferencia">
+            <option value="">Selecciona una opción</option>
+            <option>Rápido (3 minutos), aunque solo limpien el exterior, y yo aspiro si quiero</option>
+            <option>Que se encarguen de todo — interior y exterior — cada vez, aunque tome más tiempo</option>
+            <option>Rápido para el uso semanal, con una limpieza profunda completa una vez al mes</option>
+            <option>Depende del precio, no tengo una preferencia fuerte</option>
+          </select>
+        </div>
 
         <div>
           <label for="interes">Si esto existiera cerca de ti, ¿qué tan interesado estarías en probarlo?</label>
@@ -365,17 +376,6 @@
             <option>S/100 – S/119</option>
             <option>S/120 o más</option>
             <option>No pagaría por esto</option>
-          </select>
-        </div>
-
-        <div class="full-width">
-          <label for="aspirado">Si además hubiera aspiradoras autoservicio gratis, ¿qué tan importante sería eso para ti?</label>
-          <select id="aspirado" name="aspirado">
-            <option value="">Selecciona una opción</option>
-            <option>Nada importante, me interesa solo el exterior</option>
-            <option>Un plus, pero no decide mi elección</option>
-            <option>Importante, lo tomaría en cuenta seriamente</option>
-            <option>Decisivo, sin eso no me interesa igual</option>
           </select>
         </div>
 
@@ -417,10 +417,10 @@ async function submitForm(event){
   const perfil      = document.getElementById('perfil').value;
   const interes     = document.getElementById('interes').value;
   const precio      = document.getElementById('precio').value;
-  const aspirado    = document.getElementById('aspirado').value;
+  const preferencia = document.getElementById('preferencia').value;
   const contacto    = document.getElementById('celular').value.trim();
 
-  if(!distrito || !donde_lavas || !interior || !frecuencia || !perfil || !interes || !precio || !aspirado){
+  if(!distrito || !donde_lavas || !interior || !frecuencia || !perfil || !preferencia || !interes || !precio){
     alert('Completa las ocho preguntas para enviar tu opinión.');
     return false;
   }
@@ -429,7 +429,7 @@ async function submitForm(event){
     method: 'POST',
     mode: 'no-cors',
     headers: { 'Content-Type': 'text/plain' },
-    body: JSON.stringify({ distrito, donde_lavas, interior, frecuencia, perfil, interes, precio, aspirado, contacto })
+    body: JSON.stringify({ distrito, donde_lavas, interior, frecuencia, perfil, preferencia, interes, precio, contacto })
   }).catch(()=>{});
 
   document.getElementById('formState').classList.add('hidden');
