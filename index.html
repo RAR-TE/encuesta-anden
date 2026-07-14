@@ -241,9 +241,7 @@
       <h3>Cuéntanos qué opinas</h3>
       <p class="sub">8 preguntas rápidas, nada más. <span style="opacity:0.6;">· 2 min</span></p>
 
-      <form id="encuestaForm" name="encuesta-anden" method="POST" data-netlify="true" netlify-honeypot="bot-field" onsubmit="return submitForm(event)">
-      <input type="hidden" name="form-name" value="encuesta-anden">
-      <p style="display:none;"><label>No llenar: <input name="bot-field"></label></p>
+      <form id="encuestaForm" onsubmit="return submitForm(event)">
 
       <div class="form-grid">
 
@@ -428,16 +426,14 @@ async function submitForm(event){
   }
 
   try{
-    await fetch('/', {
+    await fetch('https://script.google.com/macros/s/AKfycbztTA6DPlHGG9zRdfzEV2yg4AJ23fub7dWjHJ2tw_MKOPf1vZfNKVzGTHMueWfrx8kCXg/exec', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      body: encodeFormData({
-        'form-name': 'encuesta-anden',
-        distrito, donde_lavas, interior, frecuencia, perfil, interes, precio, aspirado, contacto
-      })
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ distrito, donde_lavas, interior, frecuencia, perfil, interes, precio, aspirado, contacto })
     });
   }catch(e){
-    console.error('No se pudo enviar la respuesta a Netlify Forms', e);
+    console.error('Error al enviar respuesta', e);
   }
 
   document.getElementById('formState').classList.add('hidden');
