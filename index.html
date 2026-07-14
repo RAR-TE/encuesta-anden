@@ -380,6 +380,17 @@
           </select>
         </div>
 
+        <div class="full-width">
+          <label for="aspirado">Si además hubiera aspiradoras autoservicio gratis, ¿qué tan importante sería eso para ti?</label>
+          <select id="aspirado" name="aspirado">
+            <option value="">Selecciona una opción</option>
+            <option>Nada importante, me interesa solo el exterior</option>
+            <option>Un plus, pero no decide mi elección</option>
+            <option>Importante, lo tomaría en cuenta seriamente</option>
+            <option>Decisivo, sin eso no me interesa igual</option>
+          </select>
+        </div>
+
         <label for="celular" class="full-width">WhatsApp o correo (opcional, para avisarte si esto se hace realidad)</label>
         <input id="celular" name="contacto" type="text" placeholder="Opcional" class="full-width">
 
@@ -419,9 +430,10 @@ async function submitForm(event){
   const interes     = document.getElementById('interes').value;
   const precio      = document.getElementById('precio').value;
   const preferencia = document.getElementById('preferencia').value;
+  const aspirado    = document.getElementById('aspirado').value;
   const contacto    = document.getElementById('celular').value.trim();
 
-  if(!distrito || !donde_lavas || !interior || !frecuencia || !perfil || !preferencia || !interes || !precio){
+  if(!distrito || !donde_lavas || !interior || !frecuencia || !perfil || !preferencia || !interes || !precio || !aspirado){
     alert('Completa las ocho preguntas para enviar tu opinión.');
     return false;
   }
@@ -430,7 +442,7 @@ async function submitForm(event){
     method: 'POST',
     mode: 'no-cors',
     headers: { 'Content-Type': 'text/plain' },
-    body: JSON.stringify({ distrito, donde_lavas, interior, frecuencia, perfil, preferencia, interes, precio, contacto })
+    body: JSON.stringify({ distrito, donde_lavas, interior, frecuencia, perfil, preferencia, interes, precio, aspirado, contacto })
   }).catch(()=>{});
 
   document.getElementById('formState').classList.add('hidden');
