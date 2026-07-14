@@ -247,8 +247,21 @@
 
         <span class="form-subhead">Tu situación actual</span>
 
-        <div>
-          <label for="distrito">¿En qué distrito manejas la mayoría de tu semana?</label>
+        <div class="full-width">
+          <label for="ciudad">¿En qué ciudad manejas la mayoría de tu semana?</label>
+          <select id="ciudad" name="ciudad" onchange="toggleDistrito(this.value)">
+            <option value="">Selecciona una opción</option>
+            <option>Lima</option>
+            <option>Arequipa</option>
+            <option>Trujillo</option>
+            <option>Piura</option>
+            <option>Cusco</option>
+            <option>Otra ciudad</option>
+          </select>
+        </div>
+
+        <div id="distrito-group" style="display:none">
+          <label for="distrito">¿En qué distrito?</label>
           <select id="distrito" name="distrito">
             <option value="">Selecciona tu distrito</option>
             <option>Ancón</option>
@@ -299,7 +312,7 @@
           </select>
         </div>
 
-        <div>
+        <div id="donde-lavas-group" class="full-width">
           <label for="donde_lavas">¿Dónde lavas tu auto hoy habitualmente?</label>
           <select id="donde_lavas" name="donde_lavas">
             <option value="">Selecciona una opción</option>
@@ -338,7 +351,7 @@
           <select id="perfil" name="perfil">
             <option value="">Selecciona una opción</option>
             <option>Uso particular</option>
-            <option>Trabajo por plataforma (taxi, delivery, transporte)</option>
+            <option>Trabajo (taxi, delivery, transporte)</option>
             <option>Flota de empresa</option>
           </select>
         </div>
@@ -415,26 +428,37 @@
 </footer>
 
 <script>
-function encodeFormData(data){
-  return Object.keys(data).map(key => encodeURIComponent(key) + '=' + encodeURIComponent(data[key])).join('&');
+function toggleDistrito(ciudad) {
+  const distritoGroup  = document.getElementById('distrito-group');
+  const dondeGroup     = document.getElementById('donde-lavas-group');
+  if (ciudad === 'Lima') {
+    distritoGroup.style.display = '';
+    dondeGroup.classList.remove('full-width');
+  } else {
+    distritoGroup.style.display = 'none';
+    dondeGroup.classList.add('full-width');
+    document.getElementById('distrito').value = '';
+  }
 }
 
 async function submitForm(event){
   event.preventDefault();
 
+  const ciudad      = document.getElementById('ciudad').value;
   const distrito    = document.getElementById('distrito').value;
   const donde_lavas = document.getElementById('donde_lavas').value;
   const interior    = document.getElementById('interior').value;
   const frecuencia  = document.getElementById('frecuencia').value;
   const perfil      = document.getElementById('perfil').value;
+  const preferencia = document.getElementById('preferencia').value;
   const interes     = document.getElementById('interes').value;
   const precio      = document.getElementById('precio').value;
-  const preferencia = document.getElementById('preferencia').value;
   const aspirado    = document.getElementById('aspirado').value;
   const contacto    = document.getElementById('celular').value.trim();
 
-  if(!distrito || !donde_lavas || !interior || !frecuencia || !perfil || !preferencia || !interes || !precio || !aspirado){
-    alert('Completa las ocho preguntas para enviar tu opinión.');
+  const distritoRequerido = ciudad === 'Lima' && !distrito;
+  if(!ciudad || distritoRequerido || !donde_lavas || !interior || !frecuencia || !perfil || !preferencia || !interes || !precio || !aspirado){
+    alert('Completa todas las preguntas para enviar tu opinión.');
     return false;
   }
 
@@ -442,7 +466,7 @@ async function submitForm(event){
     method: 'POST',
     mode: 'no-cors',
     headers: { 'Content-Type': 'text/plain' },
-    body: JSON.stringify({ distrito, donde_lavas, interior, frecuencia, perfil, preferencia, interes, precio, aspirado, contacto })
+    body: JSON.stringify({ ciudad, distrito, donde_lavas, interior, frecuencia, perfil, preferencia, interes, precio, aspirado, contacto })
   }).catch(()=>{});
 
   document.getElementById('formState').classList.add('hidden');
