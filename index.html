@@ -425,16 +425,12 @@ async function submitForm(event){
     return false;
   }
 
-  try{
-    await fetch('https://script.google.com/macros/s/AKfycbztTA6DPlHGG9zRdfzEV2yg4AJ23fub7dWjHJ2tw_MKOPf1vZfNKVzGTHMueWfrx8kCXg/exec', {
-      method: 'POST',
-      mode: 'no-cors',
-      headers: { 'Content-Type': 'text/plain' },
-      body: JSON.stringify({ distrito, donde_lavas, interior, frecuencia, perfil, interes, precio, aspirado, contacto })
-    });
-  }catch(e){
-    console.error('Error al enviar respuesta', e);
-  }
+  fetch('https://script.google.com/macros/s/AKfycbztTA6DPlHGG9zRdfzEV2yg4AJ23fub7dWjHJ2tw_MKOPf1vZfNKVzGTHMueWfrx8kCXg/exec', {
+    method: 'POST',
+    mode: 'no-cors',
+    headers: { 'Content-Type': 'text/plain' },
+    body: JSON.stringify({ distrito, donde_lavas, interior, frecuencia, perfil, interes, precio, aspirado, contacto })
+  }).catch(()=>{});
 
   document.getElementById('formState').classList.add('hidden');
   document.getElementById('successState').classList.remove('hidden');
