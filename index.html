@@ -129,6 +129,7 @@
     font-family:'Archivo', sans-serif; font-size:0.95rem;
   }
   .form-card input::placeholder{ color:rgba(245,250,247,0.35); }
+  .form-card select option{ color:var(--ink); background:#fff; }
   .form-card input:focus, .form-card select:focus{
     outline:2px solid var(--lime); outline-offset:1px;
   }
@@ -326,10 +327,10 @@
           <label for="frecuencia">¿Con qué frecuencia lavas tu auto?</label>
           <select id="frecuencia" name="frecuencia">
             <option value="">Selecciona una opción</option>
+            <option>Más de una vez por semana</option>
             <option>Semanal</option>
             <option>Quincenal</option>
             <option>Mensual</option>
-            <option>Rara vez</option>
           </select>
         </div>
 
