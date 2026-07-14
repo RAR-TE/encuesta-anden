@@ -429,7 +429,7 @@ async function submitForm(event){
     await fetch('https://script.google.com/macros/s/AKfycbztTA6DPlHGG9zRdfzEV2yg4AJ23fub7dWjHJ2tw_MKOPf1vZfNKVzGTHMueWfrx8kCXg/exec', {
       method: 'POST',
       mode: 'no-cors',
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 'Content-Type': 'text/plain' },
       body: JSON.stringify({ distrito, donde_lavas, interior, frecuencia, perfil, interes, precio, aspirado, contacto })
     });
   }catch(e){
